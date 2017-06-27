@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.DragEvent;
@@ -18,14 +19,23 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Random;
 
-public class Gallery extends Activity {
+
+public class Gallery extends Activity implements GalleryFragment.OnGalleryFragmentInteractionListener{
 
     private static final String IMAGEVIEW_TAG = "icon bitmap";
     private  static final int squareSide = 75;
-
+    private ArrayList<GridViewItem> imageParts;
+    private boolean gameWon = false;
+    private MediaPlayer mp, mp_fail;
+    private GalleryFragment gf;
 
     private View.OnDragListener imageMover = new View.OnDragListener() {
 
@@ -62,7 +72,7 @@ public class Gallery extends Activity {
             GridViewItem.GridItemData gid = gvi.getGridItemData();
             v.startDrag(dragData,  // the data to be dragged
                     myShadow,  // the drag shadow builder
-                    gid,      // no need to use local data
+                    gid,      //local data
                     0          // flags (not currently used, set to 0)
             );
             return true;
@@ -76,7 +86,7 @@ public class Gallery extends Activity {
             switch(action) {
 
                 case DragEvent.ACTION_DRAG_STARTED:
-                    if (event.getClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
+                    if ((!gameWon) && event.getClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
                         v.setColorFilter(Color.BLUE);
                         v.invalidate();
                         return true;
@@ -96,10 +106,15 @@ public class Gallery extends Activity {
                     ClipData.Item item = event.getClipData().getItemAt(0);
                     CharSequence dragData = item.getText();
                     GridViewItem.GridItemData gid = (GridViewItem.GridItemData)event.getLocalState();
-                    int tmp = v.getImageId();
-                    v.swapImage(gid.gviImageId);
-                    gid.gvi.swapImage(tmp);
-                    Toast.makeText(getApplicationContext(), "Dragged data is " + dragData, Toast.LENGTH_SHORT).show();
+                    Bitmap tmpImagePart = v.getImagePart();
+                    int tmpIndex = v.getIndex();
+                    v.swapImage(gid.gviImagePart, gid.gviIndex);
+                    gid.gvi.swapImage(tmpImagePart, tmpIndex);
+                    gameWon = gf.checkWin(imageParts);
+                    if(gameWon) {
+                        mp = MediaPlayer.create(getApplicationContext(), R.raw.applause);
+                        mp.start();
+                    }
                     v.clearColorFilter();
                     v.invalidate();
                     return true;
@@ -124,17 +139,42 @@ public class Gallery extends Activity {
         }
     };
 
+
+    private Bitmap[] createBitmapParts(int sourceId, int colAmount, int rowAmount){
+        ArrayList<Bitmap> bmp = new ArrayList<Bitmap>(colAmount * rowAmount);
+        Bitmap source = BitmapFactory.decodeResource(getResources(), sourceId);
+        int width=source.getWidth();
+        int height=source.getHeight();
+        for(int i=0;i<rowAmount;i++){
+            for(int j=0;j<colAmount;j++){
+                int k = i * colAmount + j;
+
+                bmp.add(k, Bitmap.createBitmap(source, (width * j) / rowAmount, (i * height) / colAmount, width / colAmount, height / rowAmount));
+            }
+
+        }
+        //Collections.shuffle(bmp);
+        return Arrays.copyOf(bmp.toArray(), bmp.size(), Bitmap[].class);
+    }
+
     private void setup(){
         GridLayout layout = (GridLayout) findViewById(R.id.grid_container);
-        int [] resourceIds = {R.raw.arrow_glossy_left_blue, R.raw.dweller, R.raw.right_arrow};
+        gf = new GalleryFragment();
+        getFragmentManager().beginTransaction().replace(R.id.gallery_layout, gf).commit();
+        layout.removeAllViews();
+        gameWon = false;
+        imageParts = new ArrayList<>(layout.getColumnCount() * layout.getRowCount());
+        int [] resourceIds = {R.raw.arrow_glossy_left_blue, R.raw.dweller, R.raw.right_arrow, R.raw.happy};
+        int resourceId = resourceIds[new Random().nextInt(resourceIds.length)];
+        Bitmap[] parts = createBitmapParts(resourceId, layout.getColumnCount(), layout.getRowCount());
+        ArrayList<Integer> indexes = new ArrayList<>(); for (int i = 0; i< layout.getColumnCount() * layout.getRowCount(); i++) indexes.add(i);
+        Collections.shuffle(indexes);
         for (int i = 0; i < layout.getRowCount(); i++){
             for (int j = 0; j < layout.getColumnCount(); j++){
+                int k = i * layout.getColumnCount() + j;
 
-                GridViewItem gridViewItem = new GridViewItem(this, i * layout.getColumnCount() + j, resourceIds[j]);
-                //gridViewItem.setColorFilter(Color.BLACK);
-
-                Bitmap mIconBitmap = BitmapFactory.decodeResource(getResources(), resourceIds[j]);
-                gridViewItem.setImageBitmap(mIconBitmap);
+                GridViewItem gridViewItem = new GridViewItem(this, indexes.get(k), parts[indexes.get(k)]);
+                gridViewItem.setImageBitmap(parts[indexes.get(k)]);
 
                 gridViewItem.setTag(IMAGEVIEW_TAG);
                 GridLayout.LayoutParams param = new GridLayout.LayoutParams();
@@ -154,53 +194,38 @@ public class Gallery extends Activity {
                 param.rowSpec = GridLayout.spec(i);
                 gridViewItem.setLayoutParams (param);
                 layout.addView(gridViewItem);
+                imageParts.add(gridViewItem);
             }
         }
     }
 
-    private void trialSetup(){
-        GridLayout gridLayout = (GridLayout)findViewById(R.id.grid_container);
-        gridLayout.removeAllViews();
-
-        int total = 9;
-        int column = 3;
-        int row = total / column;
-        gridLayout.setColumnCount(column);
-        gridLayout.setRowCount(row + 1);
-        for(int i =0, c = 0, r = 0; i < total; i++, c++)
-        {
-            if(c == column)
-            {
-                c = 0;
-                r++;
-            }
-            ImageView oImageView = new ImageView(this);
-            oImageView.setAdjustViewBounds(true);
-            oImageView.setMaxWidth(squareSide);
-            oImageView.setMaxHeight(squareSide);
-            oImageView.setOnLongClickListener(clickListener);
-            oImageView.setOnDragListener(colorChanger);
-            Bitmap mIconBitmap = BitmapFactory.decodeResource(getResources(), R.raw.happy);
-            oImageView.setImageBitmap(mIconBitmap);
-            GridLayout.LayoutParams param = new GridLayout.LayoutParams();
-            param.height = GridLayout.LayoutParams.WRAP_CONTENT;
-            param.width = GridLayout.LayoutParams.WRAP_CONTENT;
-            param.rightMargin = 5;
-            param.topMargin = 5;
-            param.setGravity(Gravity.CENTER);
-            param.columnSpec = GridLayout.spec(c);
-            param.rowSpec = GridLayout.spec(r);
-            oImageView.setLayoutParams (param);
-            gridLayout.addView(oImageView);
-        }
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
         setup();
+    }
+
+
+    @Override
+    public void onGameReset() {
+        setup();
+    }
+
+    @Override
+    public void onGameExit() {
+        finish();
+    }
+
+    @Override
+    public void onGameOver() {
+        for (GridViewItem imagePart : imageParts){
+            imagePart.setOnLongClickListener(null);
+            imagePart.setOnDragListener(null);
+        }
+        mp_fail = MediaPlayer.create(this, R.raw.fail);
+        mp_fail.start();
     }
 
 

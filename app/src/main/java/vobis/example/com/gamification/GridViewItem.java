@@ -9,7 +9,7 @@ import android.widget.ImageView;
 public class GridViewItem extends ImageView {
 
     private int index;
-    private int imageId;
+    private Bitmap imagePart;
 
     public GridItemData getGridItemData(){
         return new GridItemData(this);
@@ -19,20 +19,22 @@ public class GridViewItem extends ImageView {
         return index;
     }
 
-    public int getImageId(){
-        return imageId;
+
+
+    public Bitmap getImagePart(){
+        return imagePart;
     }
 
-    public GridViewItem(Context context, int index, int imageId) {
+    public GridViewItem(Context context, int index, Bitmap imagePart) {
         super(context);
         this.index = index;
-        this.imageId = imageId;
+        this.imagePart = imagePart;
     }
 
-    public void swapImage(int resource){
-        Bitmap bmp = BitmapFactory.decodeResource(getResources(), resource);
-        setImageBitmap(bmp);
-        imageId = resource;
+    public void swapImage(Bitmap resource, int index){
+        setImageBitmap(resource);
+        imagePart = resource;
+        this.index = index;
     }
 
     public GridViewItem(Context context, AttributeSet attrs) {
@@ -53,12 +55,12 @@ public class GridViewItem extends ImageView {
         public GridItemData(GridViewItem gvi){
             this.gvi = gvi;
             gviIndex = index;
-            gviImageId = imageId;
+            gviImagePart = imagePart;
         }
 
         public GridViewItem gvi;
         public int gviIndex;
-        public int gviImageId;
+        public Bitmap gviImagePart;
     }
 
 }

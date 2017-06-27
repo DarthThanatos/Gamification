@@ -6,9 +6,6 @@ import android.test.ActivityUnitTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
 import android.widget.Button;
 
-/**
- * Created by Vobis on 2017-06-26.
- */
 public class MainActivityTest extends ActivityUnitTestCase<MainActivity> {
 
     public MainActivityTest() {
