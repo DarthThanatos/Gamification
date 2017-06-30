@@ -1,4 +1,4 @@
-package vobis.example.com.gamification;
+package vobis.example.com.gamification.gamification;
 
 import android.graphics.Paint;
 import android.graphics.RadialGradient;

@@ -1,9 +1,7 @@
-package vobis.example.com.gamification;
+package vobis.example.com.gamification.gallery;
 
 import android.app.Activity;
 import android.graphics.Color;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.CountDownTimer;
@@ -15,6 +13,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import vobis.example.com.gamification.R;
 
 public class GalleryFragment extends Fragment implements View.OnClickListener {
 

@@ -1,14 +1,12 @@
 package vobis.example.com.gamification;
 
-import android.test.ActivityInstrumentationTestCase2;
 import android.test.ActivityUnitTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
-import android.widget.Button;
-import android.widget.TextView;
 
 import org.junit.runner.RunWith;
 
-import static org.mockito.Mockito.when;
+import vobis.example.com.gamification.gallery.Gallery;
+import vobis.example.com.gamification.gallery.GalleryFragment;
 
 
 public class GalleryFragmentTest extends ActivityUnitTestCase<Gallery> {

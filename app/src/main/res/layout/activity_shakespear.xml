@@ -10,14 +10,14 @@
     android:orientation="horizontal">
 
     <fragment  android:id="@+id/fragmentOne"
-        android:name="vobis.example.com.gamification.EnumFragment"
+        android:name="vobis.example.com.gamification.shakespear.EnumFragment"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent" />
 
     <fragment  android:id="@+id/fragmentTwo"
-        android:name="vobis.example.com.gamification.MainActivityFragment"
-        tools:layout="@layout/fragment_main"
+        android:name="vobis.example.com.gamification.shakespear.ShakespearFragment"
+        tools:layout="@layout/fragment_shakespear"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent" />

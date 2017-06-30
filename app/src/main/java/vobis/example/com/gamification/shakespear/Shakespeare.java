@@ -1,4 +1,4 @@
-package vobis.example.com.gamification;
+package vobis.example.com.gamification.shakespear;
 
 public final class Shakespeare {
     /**

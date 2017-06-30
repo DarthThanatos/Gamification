@@ -1,8 +1,7 @@
-package vobis.example.com.gamification;
+package vobis.example.com.gamification.gallery;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 

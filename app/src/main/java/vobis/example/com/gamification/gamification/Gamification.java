@@ -1,4 +1,4 @@
-package vobis.example.com.gamification;
+package vobis.example.com.gamification.gamification;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -14,19 +14,16 @@ import android.graphics.RadialGradient;
 import android.graphics.Shader;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
+
+import vobis.example.com.gamification.R;
 
 
 public class Gamification extends Activity {

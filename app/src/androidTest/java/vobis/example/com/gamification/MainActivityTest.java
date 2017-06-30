@@ -1,10 +1,11 @@
 package vobis.example.com.gamification;
 
-import android.content.Context;
 import android.content.Intent;
 import android.test.ActivityUnitTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
 import android.widget.Button;
+
+import vobis.example.com.gamification.mainactivity.MainActivity;
 
 public class MainActivityTest extends ActivityUnitTestCase<MainActivity> {
 

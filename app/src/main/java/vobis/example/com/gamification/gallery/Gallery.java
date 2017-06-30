@@ -1,4 +1,4 @@
-package vobis.example.com.gamification;
+package vobis.example.com.gamification.gallery;
 
 
 import android.app.Activity;
@@ -18,14 +18,13 @@ import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.GridLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
+
+import vobis.example.com.gamification.R;
 
 
 public class Gallery extends Activity implements GalleryFragment.OnGalleryFragmentInteractionListener{

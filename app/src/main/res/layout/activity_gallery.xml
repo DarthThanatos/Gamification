@@ -14,7 +14,7 @@
             android:id="@+id/grid_container"
             android:columnCount="3"
             android:rowCount="3"
-            tools:context="vobis.example.com.gamification.Gallery">
+            tools:context="vobis.example.com.gamification.gallery.Gallery">
         </GridLayout>
 
     </LinearLayout>

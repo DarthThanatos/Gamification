@@ -4,7 +4,7 @@
     android:layout_weight="1"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="vobis.example.com.gamification.GalleryFragment"
+    tools:context="vobis.example.com.gamification.gallery.GalleryFragment"
     android:gravity="center_horizontal">
 
     <TextView

@@ -1,4 +1,4 @@
-package vobis.example.com.gamification;
+package vobis.example.com.gamification.gallery;
 
 public class GalleryMessages {
 
