@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="vobis.example.com.gamification" >
+
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
@@ -49,6 +49,14 @@
         <activity
             android:name=".contactmanager.ContactAdder"
             android:label="@string/title_activity_contact_adder" >
+        </activity>
+        <activity
+            android:name=".navdraw.DrawerActivity"
+            android:label="@string/title_activity_drawer" >
+        </activity>
+        <activity
+            android:name=".cardactivity.CardActivity"
+            android:label="@string/title_activity_card" >
         </activity>
     </application>
 

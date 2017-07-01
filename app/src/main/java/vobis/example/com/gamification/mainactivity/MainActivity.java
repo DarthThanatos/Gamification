@@ -18,10 +18,12 @@ import java.util.Arrays;
 
 import vobis.example.com.gamification.R;
 import vobis.example.com.gamification.accelerometer.AccelerometerPlayActivity;
+import vobis.example.com.gamification.cardactivity.CardActivity;
 import vobis.example.com.gamification.compass.CompassActivity;
 import vobis.example.com.gamification.contactmanager.ContactAdder;
 import vobis.example.com.gamification.gallery.Gallery;
 import vobis.example.com.gamification.gamification.Gamification;
+import vobis.example.com.gamification.navdraw.DrawerActivity;
 import vobis.example.com.gamification.shakespear.ShakespearActivity;
 
 
@@ -101,6 +103,8 @@ public class MainActivity extends Activity{
         setContentView(R.layout.activity_main_stack);
         StackView stackView = (StackView) findViewById(R.id.stack_container);
         ArrayList<StackItem> list = new ArrayList<>(Arrays.asList(
+                new StackItem(this, R.drawable.elevation, CardActivity.class, transitAction),
+                new StackItem(this, R.drawable.drawer, DrawerActivity.class, transitAction),
                 new StackItem(this, R.drawable.shakespeare, ShakespearActivity.class, transitAction),
                 new StackItem(this, R.drawable.puzzle, Gallery.class, transitAction),
                 new StackItem(this, R.drawable.gamification, Gamification.class, transitAction),
