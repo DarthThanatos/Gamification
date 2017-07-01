@@ -44,4 +44,6 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="action_websearch">Web search</string>
     <string name="title_activity_card">CardActivity</string>
+    <string name="title_activity_snackbar">Snackbar</string>
+    <string name="title_activity_surprise">Surprise</string>
 </resources>

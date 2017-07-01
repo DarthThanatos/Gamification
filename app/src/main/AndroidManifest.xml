@@ -58,6 +58,14 @@
             android:name=".cardactivity.CardActivity"
             android:label="@string/title_activity_card" >
         </activity>
+        <activity
+            android:name=".snackbarnotification.SnackbarActivity"
+            android:label="@string/title_activity_snackbar" >
+        </activity>
+        <activity
+            android:name=".snackbarnotification.Surprise"
+            android:label="@string/title_activity_surprise" >
+        </activity>
     </application>
 
 </manifest>
