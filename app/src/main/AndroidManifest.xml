@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -60,11 +61,16 @@
         </activity>
         <activity
             android:name=".snackbarnotification.SnackbarActivity"
-            android:label="@string/title_activity_snackbar" >
+            android:label="@string/title_activity_snackbar">
         </activity>
         <activity
             android:name=".snackbarnotification.Surprise"
-            android:label="@string/title_activity_surprise" >
+            android:label="@string/title_activity_surprise"
+            android:parentActivityName=".snackbarnotification.SnackbarActivity">
+        </activity>
+        <activity
+            android:name=".floatingactivity.FloatingActivity"
+            android:label="@string/title_activity_floating" >
         </activity>
     </application>
 

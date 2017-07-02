@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.StackView;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -21,6 +22,7 @@ import vobis.example.com.gamification.accelerometer.AccelerometerPlayActivity;
 import vobis.example.com.gamification.cardactivity.CardActivity;
 import vobis.example.com.gamification.compass.CompassActivity;
 import vobis.example.com.gamification.contactmanager.ContactAdder;
+import vobis.example.com.gamification.floatingactivity.FloatingActivity;
 import vobis.example.com.gamification.gallery.Gallery;
 import vobis.example.com.gamification.gamification.Gamification;
 import vobis.example.com.gamification.navdraw.DrawerActivity;
@@ -104,6 +106,7 @@ public class MainActivity extends Activity{
         setContentView(R.layout.activity_main_stack);
         StackView stackView = (StackView) findViewById(R.id.stack_container);
         ArrayList<StackItem> list = new ArrayList<>(Arrays.asList(
+                new StackItem(this, R.drawable.floating, FloatingActivity.class, transitAction),
                 new StackItem(this, R.drawable.snackbar, SnackbarActivity.class, transitAction),
                 new StackItem(this, R.drawable.elevation, CardActivity.class, transitAction),
                 new StackItem(this, R.drawable.drawer, DrawerActivity.class, transitAction),

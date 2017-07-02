@@ -9,15 +9,26 @@
     <TextView
         android:id="@+id/snack_bar_info"
         android:text="Click button below to spawn a snackbar"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
+        android:id="@+id/snack_bar_btn"
+        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/snack_bar_info"
         android:text="Click me"
         android:onClick="createSnackBar"/>
+
+    <ImageSwitcher
+        android:id="@+id/snack_gallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/snack_bar_btn"/>
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_alignParentBottom="true"

@@ -1,5 +1,6 @@
 package vobis.example.com.gamification.snackbarnotification;
 
+import android.app.NotificationManager;
 import android.media.MediaPlayer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ public class Surprise extends ActionBarActivity {
         setContentView(R.layout.activity_surprise);
         MediaPlayer mp = MediaPlayer.create(this, R.raw.surprise);
         mp.start();
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.cancel(SnackbarActivity.noticode);
     }
 
     public void goBack(View view) {
