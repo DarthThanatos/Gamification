@@ -3,11 +3,9 @@ package vobis.example.com.gamification;
 import android.test.ActivityUnitTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
 
-import org.junit.runner.RunWith;
 
 import vobis.example.com.gamification.gallery.Gallery;
 import vobis.example.com.gamification.gallery.GalleryFragment;
-
 
 public class GalleryFragmentTest extends ActivityUnitTestCase<Gallery> {
 
