@@ -25,6 +25,7 @@ import vobis.example.com.gamification.contactmanager.ContactAdder;
 import vobis.example.com.gamification.floatingactivity.FloatingActivity;
 import vobis.example.com.gamification.gallery.Gallery;
 import vobis.example.com.gamification.gamification.Gamification;
+import vobis.example.com.gamification.me2minigame.MEMiniGameActivity;
 import vobis.example.com.gamification.navdraw.DrawerActivity;
 import vobis.example.com.gamification.shakespear.ShakespearActivity;
 import vobis.example.com.gamification.snackbarnotification.SnackbarActivity;
@@ -107,6 +108,7 @@ public class MainActivity extends Activity{
         setContentView(R.layout.activity_main_stack);
         StackView stackView = (StackView) findViewById(R.id.stack_container);
         ArrayList<StackItem> list = new ArrayList<>(Arrays.asList(
+                new StackItem(this, R.drawable.me_minigame, MEMiniGameActivity.class, transitAction),
                 new StackItem(this, R.drawable.topdown, TopDownActivity.class, transitAction),
                 new StackItem(this, R.drawable.floating, FloatingActivity.class, transitAction),
                 new StackItem(this, R.drawable.snackbar, SnackbarActivity.class, transitAction),

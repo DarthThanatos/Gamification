@@ -1,12 +1,62 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     tools:context="vobis.example.com.gamification.me2minigame.MEMiniGameActivity">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <vobis.example.com.gamification.me2minigame.MEGameArea
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageButton
+        android:id="@+id/move_left"
+        android:src="@drawable/move_left"
+        android:background="@null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/accept_move"
+        android:layout_above="@+id/move_down"
+        android:layout_alignTop="@+id/accept_move"
+        android:layout_alignBottom="@+id/accept_move"/>
+
+    <ImageButton
+        android:background="@null"
+        android:id="@+id/accept_move"
+        android:src="@drawable/accept_move"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_toLeftOf="@+id/move_right"
+        android:layout_above="@+id/move_down"/>
+
+    <ImageButton
+        android:background="@null"
+        android:id="@+id/move_right"
+        android:src="@drawable/move_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/accept_move"
+        android:layout_alignBottom="@+id/accept_move"
+        android:layout_above="@+id/move_down"/>
+
+    <ImageButton
+        android:background="@null"
+        android:id="@+id/move_up"
+        android:src="@drawable/move_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/accept_move"
+        android:layout_alignRight="@+id/accept_move"
+        android:layout_above="@+id/accept_move"/>
+
+    <ImageButton
+        android:background="@null"
+        android:id="@+id/move_down"
+        android:src="@drawable/move_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/accept_move"
+        android:layout_alignLeft="@+id/accept_move"/>
 
 </RelativeLayout>
