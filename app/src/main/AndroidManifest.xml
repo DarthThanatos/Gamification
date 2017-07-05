@@ -61,7 +61,8 @@
         </activity>
         <activity
             android:name=".snackbarnotification.SnackbarActivity"
-            android:label="@string/title_activity_snackbar" >
+            android:label="@string/title_activity_snackbar"
+            android:parentActivityName=".mainactivity.MainActivity">
         </activity>
         <activity
             android:name=".snackbarnotification.Surprise"
@@ -74,9 +75,13 @@
         </activity>
         <activity
             android:name=".topdownminigame.TopDownActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_top_down"
-            android:screenOrientation="landscape"
-            android:configChanges="keyboardHidden|orientation|screenSize" >
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name=".me2minigame.MEMiniGameActivity"
+            android:label="@string/title_activity_memini_game" >
         </activity>
     </application>
 
