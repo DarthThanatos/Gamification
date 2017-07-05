@@ -17,6 +17,7 @@ import java.util.TimerTask;
 public class PiecesColumn extends View {
 
     private int mJ;
+    private int mSlideStep = 5;
     private PiecesRow mLuckyRow;
     private ArrayList<Piece> mPiecesInColumn;
     private int mPiecesAmount;
@@ -26,7 +27,7 @@ public class PiecesColumn extends View {
     private Paint mStrokePaint;
     private Context mContext;
 
-    private TimerTask mTimerTask;
+    private SliderTask mTimerTask;
     private Timer mTimer;
 
     private char pickLetter(){
@@ -45,7 +46,7 @@ public class PiecesColumn extends View {
         mTimer.cancel();
         if(selected){
             mTimer = new Timer();
-            mTimerTask = new SliderTask(mContext,mPiecesInColumn);
+            mTimerTask = new SliderTask(mContext,mPiecesInColumn,mSlideStep);
             mTimer.scheduleAtFixedRate(mTimerTask, 0, 100);
             mStrokePaint.setColor(Color.YELLOW);
             mStrokePaint.setStrokeWidth(5);
@@ -56,14 +57,25 @@ public class PiecesColumn extends View {
         }
     }
 
+    public void setSlideStep(int slideStep){
+        mSlideStep = slideStep;
+        mTimerTask.setSlideStep(slideStep);
+    }
+
     private class SliderTask extends TimerTask{
 
         private Context mTaskContext;
         private ArrayList<Piece> mTaskPieces;
+        private int mSlideStep;
 
-        public SliderTask(Context context, ArrayList<Piece> pieces){
+        public void setSlideStep(int slideStep){
+            this.mSlideStep = slideStep;
+        }
+
+        public SliderTask(Context context, ArrayList<Piece> pieces, int slideStep){
             mTaskContext = context;
             mTaskPieces = pieces;
+            mSlideStep = slideStep;
         }
 
         @Override
@@ -72,7 +84,7 @@ public class PiecesColumn extends View {
                 @Override
                 public void run() {
                     for (Piece piece: mTaskPieces){
-                        piece.slideDown(5);
+                        piece.slideDown(mSlideStep);
                     }
                     invalidate();
                 }
@@ -109,7 +121,7 @@ public class PiecesColumn extends View {
 
 
         mTimer = new Timer();
-        mTimerTask = new SliderTask(context,mPiecesInColumn);
+        mTimerTask = new SliderTask(context,mPiecesInColumn, mSlideStep);
 
         RectShape rectShape = new RectShape();
         rectShape.resize(Piece.CUSTOM_WIDTH, GameArea.ROWS_AMOUNT * Piece.CUSTOM_HEIGHT);
@@ -130,5 +142,9 @@ public class PiecesColumn extends View {
             piece.draw(canvas);
         }
 
+    }
+
+    public void stopSliding(){
+        mTimer.cancel();
     }
 }

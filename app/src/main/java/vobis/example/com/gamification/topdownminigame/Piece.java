@@ -58,7 +58,7 @@ public class Piece extends View {
         mDisplayLetter = displayLetter;
         OvalShape circle = new OvalShape();
         mDrawable = new ShapeDrawable(circle);
-        setColors(255,0,0);
+        setColors(255,255,0);
         CUSTOM_WIDTH  = GameArea.SCREEN_WIDTH / GameArea.COLUMNS_AMOUNT;
         CUSTOM_HEIGHT = GameArea.SCREEN_HEIGHT / GameArea.ROWS_AMOUNT;
         circle.resize(CUSTOM_WIDTH, CUSTOM_HEIGHT);
@@ -95,7 +95,6 @@ public class Piece extends View {
                 animatorSet.start();
             }
         });
-
         //animatorSet.start();
     }
 
@@ -111,10 +110,13 @@ public class Piece extends View {
         this.y = y;
     }
 
+    public float getSlideY(){
+        return y;
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        //System.out.println("Draw piece " + "(" + mI + ", " + mJ + ")");
         canvas.save();
 
         canvas.translate(x,y);
