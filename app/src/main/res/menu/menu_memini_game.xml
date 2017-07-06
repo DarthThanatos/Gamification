@@ -1,7 +1,39 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="vobis.example.com.gamification.me2minigame.MEMiniGameActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+    tools:context="vobis.example.com.gamification.topdownminigame.TopDownActivity">
+
+    <item
+        android:id="@+id/difficulty"
+        android:title="Difficulty"
+        app:showAsAction="always">
+        <menu>
+            <group
+                android:id="@+id/speeds_group"
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/easy"
+                    android:title="Easy"
+                    app:showAsAction="always" />
+                <item
+                    android:id="@+id/medium"
+                    android:title="Medium"
+                    app:showAsAction="always" />
+                <item
+                    android:id="@+id/hard"
+                    android:title="Hard"
+                    app:showAsAction="always" />
+
+            </group>
+        </menu>
+
+    </item>
+
+    <item
+        android:id="@+id/restart_option"
+        android:title="Restart"
+        app:showAsAction="always"
+        android:onClick="restartGame"
+        />
 </menu>

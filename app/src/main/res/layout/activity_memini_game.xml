@@ -4,9 +4,19 @@
     android:layout_height="fill_parent"
     tools:context="vobis.example.com.gamification.me2minigame.MEMiniGameActivity">
 
-    <vobis.example.com.gamification.me2minigame.MEGameArea
+    <vobis.example.com.gamification.me2minigame.statuspanel.StatusPanel
+        android:id="@+id/status_panel"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="75dp"
+        android:layout_alignParentTop="true"/>
+
+    <vobis.example.com.gamification.me2minigame.MEGameArea
+        android:id="@+id/me_game_area"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/status_panel"/>
+
+
 
     <ImageButton
         android:id="@+id/move_left"
@@ -17,7 +27,8 @@
         android:layout_toLeftOf="@+id/accept_move"
         android:layout_above="@+id/move_down"
         android:layout_alignTop="@+id/accept_move"
-        android:layout_alignBottom="@+id/accept_move"/>
+        android:layout_alignBottom="@+id/accept_move"
+        android:onClick="moveLeft"/>
 
     <ImageButton
         android:background="@null"
@@ -26,7 +37,8 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_toLeftOf="@+id/move_right"
-        android:layout_above="@+id/move_down"/>
+        android:layout_above="@+id/move_down"
+        android:onClick="acceptTile"/>
 
     <ImageButton
         android:background="@null"
@@ -37,7 +49,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/accept_move"
         android:layout_alignBottom="@+id/accept_move"
-        android:layout_above="@+id/move_down"/>
+        android:layout_above="@+id/move_down"
+        android:onClick="moveRight"/>
 
     <ImageButton
         android:background="@null"
@@ -47,6 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/accept_move"
         android:layout_alignRight="@+id/accept_move"
+        android:onClick="moveUp"
         android:layout_above="@+id/accept_move"/>
 
     <ImageButton
@@ -56,6 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:onClick="moveDown"
         android:layout_alignRight="@+id/accept_move"
         android:layout_alignLeft="@+id/accept_move"/>
 
