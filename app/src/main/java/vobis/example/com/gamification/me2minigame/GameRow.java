@@ -36,13 +36,13 @@ public class GameRow extends View {
         mSlideY = index * tileHeight;
 
         for (int i = 0; i < tileDescs.length; i++){
-            mTileViews.add(new TileView(context, tileDescs[i], i, index));
+            mTileViews.add(new TileView(context, tileDescs[i], i, index, this));
         }
     }
 
     public void slideDown(){
         mSlideY += mContext.mSelectedConfig.getSpeedController().getSlideStep();
-        if(mSlideY + 155 > MEGameArea.HEIGHT){
+        if(mSlideY  > MEGameArea.HEIGHT - 155 ){ // 155 is the height of all menu bars (with statuspanel)
             for (TileDesc tileDesc : mTileDescs){
                 if(tileDesc.getSelected()){
                     //Toast.makeText(mContext, "Selected: " + tileDesc.getView().getVerticalIndex(), Toast.LENGTH_SHORT).show();
@@ -60,6 +60,10 @@ public class GameRow extends View {
         }
     }
 
+
+    public float getSlideY(){
+        return mSlideY;
+    }
 
     public void setSlideY(float slideY){
         mSlideY = slideY;

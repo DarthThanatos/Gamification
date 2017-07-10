@@ -47,9 +47,10 @@ public class TileDesc {
         return mSelected;
     }
 
-    public void setSelected(boolean selected) throws WrongTileException{
+    public void setSelected(boolean selected) throws WrongTileException, TileView.NotInViewAreaException {
+        System.out.println("Selecting in set selected");
+        mTileView.setSelectedInBounds(selected);
         mSelected = selected;
-        mTileView.setSelected(selected);
         if (selected){
             if(mFailTile) throw new WrongTileException("You messed with the wrong tile");
         }

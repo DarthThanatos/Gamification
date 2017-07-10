@@ -19,20 +19,25 @@ public class GameMap {
 
     public static int errorResourceIndex;
 
-    public void setSelectedTile(int i, int j) throws TileDesc.WrongTileException {
+    public void setSelectedTile(int i, int j) throws TileDesc.WrongTileException, TileView.NotInViewAreaException {
+        if (mSelectedTile != null)
+            System.out.println("Changing from (" + mSelectedTile.getView().getRowIndex() + ", " + mSelectedTile.getView().getVerticalIndex() +
+            ") to: (" + i + ", " + j + ")");
+        else
+            System.out.println("Moving to: (" + i + ", " + j + ")");
+        mTileDescs[i][j].setSelected(true);
+
         if(mSelectedTile != null){
-            System.out.println("SetSelected false: (" + mSelectedTile.getView().getRowIndex() + ", " + mSelectedTile.getView().getVerticalIndex() +")");
             mSelectedTile.setSelected(false);
         }
-        mSelectedTile = mTileDescs[i][j];
-        System.out.println("setSelected true: (" + mSelectedTile.getView().getRowIndex() + ", " + mSelectedTile.getView().getVerticalIndex() + ")");
-        mSelectedTile.setSelected(true);
 
+        mSelectedTile = mTileDescs[i][j];
+        /*
         try{
             throw new Exception();
         }catch(Exception e){
             e.printStackTrace();
-        }
+        } // ^ for debugging purposes*/
     }
 
     private GameConfig mGameConfig;

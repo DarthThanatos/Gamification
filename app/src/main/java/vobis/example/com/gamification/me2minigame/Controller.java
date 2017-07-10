@@ -14,8 +14,6 @@ public class Controller {
         mGameArea = meGameArea;
         mGameMap = new GameMap(gameConfig);
         meGameArea.fillRowsWithContent(mGameMap, this);
-        moveDown();
-        moveRight();
     }
 
     public void moveLeft(){
@@ -25,6 +23,8 @@ public class Controller {
                 mGameMap.setSelectedTile(mHorizontalIndex, mVerticalIndex);
             } catch (TileDesc.WrongTileException e) {
                 e.printStackTrace();
+            } catch (TileView.NotInViewAreaException e) {
+                mVerticalIndex ++;
             }
         }
     }
@@ -36,6 +36,8 @@ public class Controller {
                 mGameMap.setSelectedTile(mHorizontalIndex, mVerticalIndex);
             } catch (TileDesc.WrongTileException e) {
                 e.printStackTrace();
+            } catch (TileView.NotInViewAreaException e) {
+                mVerticalIndex --;
             }
         }
     }
@@ -51,6 +53,8 @@ public class Controller {
             mGameMap.setSelectedTile(mHorizontalIndex, mVerticalIndex);
         } catch (TileDesc.WrongTileException e) {
             e.printStackTrace();
+        } catch (TileView.NotInViewAreaException e) {
+            mHorizontalIndex = mHorizontalIndex == GameMap.ROWS_AMOUNT ? 0 : mHorizontalIndex + 1;
         }
     }
 
@@ -65,6 +69,8 @@ public class Controller {
             mGameMap.setSelectedTile(mHorizontalIndex, mVerticalIndex);
         } catch (TileDesc.WrongTileException e) {
             e.printStackTrace();
+        } catch (TileView.NotInViewAreaException e) {
+            mHorizontalIndex = mHorizontalIndex ==  0 ? GameMap.ROWS_AMOUNT  : mHorizontalIndex - 1;
         }
     }
 

@@ -23,9 +23,12 @@ public class TileView extends View {
     private ShapeDrawable mFrame;
     private float mX;
 
-    public TileView(Context context, TileDesc tileDesc, int verticalIndex, int rowIndex) {
+    private GameRow mParent;
+
+    public TileView(Context context, TileDesc tileDesc, int verticalIndex, int rowIndex, GameRow parent) {
         super(context);
         mTileDesc = tileDesc;
+        mParent = parent;
         tileDesc.setView(this);
         mVerticalIndex = verticalIndex;
         mRowIndex = rowIndex;
@@ -60,7 +63,18 @@ public class TileView extends View {
         return mVerticalIndex;
     }
 
-    public void setSelected(boolean selected){
+    public class NotInViewAreaException extends Exception{
+        public NotInViewAreaException(String msg){
+            super(msg);
+        }
+    }
+
+    public void setSelectedInBounds(boolean selected) throws  NotInViewAreaException{
+        if((mParent.getSlideY() < -0.75 * TILE_HEIGHT  ||
+                mParent.getSlideY() > MEGameArea.HEIGHT - 155) && selected) {
+            throw new NotInViewAreaException("Not in GameArea view");
+        }
+
         Paint p = mFrame.getPaint();
         if(selected) {
             p.setStrokeWidth(5);

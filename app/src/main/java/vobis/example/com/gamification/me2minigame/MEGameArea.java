@@ -69,6 +69,8 @@ public class MEGameArea extends View {
             mGameMap.setSelectedTile(0,0);
         } catch (TileDesc.WrongTileException e) {
             e.printStackTrace();
+        } catch (TileView.NotInViewAreaException e) {
+            e.printStackTrace();
         }
 
         mTask = new TimerTask() {
