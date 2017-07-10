@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import vobis.example.com.gamification.me2minigame.MEMiniGameActivity;
 import vobis.example.com.gamification.me2minigame.gameconfig.GameConfig;
 
 public class StatusPanel extends RelativeLayout {
@@ -21,8 +22,11 @@ public class StatusPanel extends RelativeLayout {
     private SoughtTilesIndicator mSoughtTilesIndicator;
     protected final static int CHILDREN_AMOUNT = 3;
 
+    private MEMiniGameActivity mContext;
+
     public StatusPanel(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mContext = (MEMiniGameActivity) context;
 
         WIDTH = getResources().getDisplayMetrics().widthPixels;
         HEIGHT = getResources().getDisplayMetrics().heightPixels;
@@ -44,10 +48,16 @@ public class StatusPanel extends RelativeLayout {
     }
 
     public void reflectMistake(){
-
+        mLivesIndicator.fail();
+        if(mLivesIndicator.getLives() == 0)
+            mContext.gameOver("You lost all your lives");
     }
 
     public void reflectCorrectChoice(){
         mSoughtTilesIndicator.setNextToFind();
+    }
+
+    public void stopGame(String msg){
+        mTimeIndicator.stopCounting(msg);
     }
 }

@@ -16,33 +16,29 @@ public class Controller {
         meGameArea.fillRowsWithContent(mGameMap, this);
     }
 
-    public void moveLeft(){
+    public void moveLeft() throws TileDesc.WrongTileException {
         if(mVerticalIndex > 0){
             mVerticalIndex --;
             try {
                 mGameMap.setSelectedTile(mHorizontalIndex, mVerticalIndex);
-            } catch (TileDesc.WrongTileException e) {
-                e.printStackTrace();
             } catch (TileView.NotInViewAreaException e) {
                 mVerticalIndex ++;
             }
         }
     }
 
-    public void moveRight(){
+    public void moveRight() throws TileDesc.WrongTileException {
         if(mVerticalIndex < GameMap.COLUMNS_AMOUNT - 1){
             mVerticalIndex ++;
             try {
                 mGameMap.setSelectedTile(mHorizontalIndex, mVerticalIndex);
-            } catch (TileDesc.WrongTileException e) {
-                e.printStackTrace();
             } catch (TileView.NotInViewAreaException e) {
                 mVerticalIndex --;
             }
         }
     }
 
-    public void moveUp(){
+    public void moveUp() throws TileDesc.WrongTileException {
         if(mHorizontalIndex > 0){
             mHorizontalIndex --;
         }
@@ -51,14 +47,12 @@ public class Controller {
         }
         try {
             mGameMap.setSelectedTile(mHorizontalIndex, mVerticalIndex);
-        } catch (TileDesc.WrongTileException e) {
-            e.printStackTrace();
         } catch (TileView.NotInViewAreaException e) {
             mHorizontalIndex = mHorizontalIndex == GameMap.ROWS_AMOUNT ? 0 : mHorizontalIndex + 1;
         }
     }
 
-    public void moveDown(){
+    public void moveDown() throws TileDesc.WrongTileException {
         if(mHorizontalIndex < GameMap.ROWS_AMOUNT){
             mHorizontalIndex ++;
         }
@@ -67,14 +61,12 @@ public class Controller {
         }
         try {
             mGameMap.setSelectedTile(mHorizontalIndex, mVerticalIndex);
-        } catch (TileDesc.WrongTileException e) {
-            e.printStackTrace();
-        } catch (TileView.NotInViewAreaException e) {
+        }catch (TileView.NotInViewAreaException e) {
             mHorizontalIndex = mHorizontalIndex ==  0 ? GameMap.ROWS_AMOUNT  : mHorizontalIndex - 1;
         }
     }
 
-    public void accept(){
-
+    public void accept() throws TileDesc.WrongTileException  {
+        mGameMap.acceptTile(mHorizontalIndex, mVerticalIndex);
     }
 }

@@ -16,9 +16,14 @@ public class TileDesc {
         }
     }
 
-    public TileDesc(boolean failTile, int codeResourceIndex){
+    public TileDesc(boolean failTile, boolean sought,int codeResourceIndex){
         mFailTile = failTile;
         mCodeResourceIndex = codeResourceIndex;
+        mSought = sought;
+    }
+
+    public void setSought(boolean sought){
+        mSought = sought;
     }
 
     public void setView(TileView tileView){
@@ -43,6 +48,10 @@ public class TileDesc {
         return mSought;
     }
 
+    public void setFail( boolean failTile){
+        mFailTile = failTile;
+    }
+
     public boolean getSelected(){
         return mSelected;
     }
@@ -54,9 +63,11 @@ public class TileDesc {
         if (selected){
             if(mFailTile) throw new WrongTileException("You messed with the wrong tile");
         }
-        else{
+    }
 
-        }
+
+    public void accept() throws WrongTileException {
+        if (!mSought) throw  new WrongTileException("Not accepted");
     }
 
 }

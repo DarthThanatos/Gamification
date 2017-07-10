@@ -93,6 +93,10 @@ public class MEGameArea extends View {
         mTimer.scheduleAtFixedRate(mTask, 0, 100);
     }
 
+    public void stopGame(){
+        mTimer.cancel();
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         for (GameRow gameRow : mGameRows){

@@ -2,6 +2,7 @@ package vobis.example.com.gamification.me2minigame;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -27,6 +28,8 @@ public class MEMiniGameActivity extends ActionBarActivity {
     private MEGameArea mGameArea;
     private StatusPanel mStatusPanel;
 
+    private boolean gameLasts = true;
+
     private void setup(){
         mSelectedConfig = (GameConfig)getIntent().getSerializableExtra(CONFIG_KEY);
         mSelectedConfig = mSelectedConfig == null ? new Easy() : mSelectedConfig;
@@ -44,6 +47,7 @@ public class MEMiniGameActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         if(mGameArea != null)mGameArea.cleanup();
         setup();
+        gameLasts = true;
     }
 
     @Override
@@ -69,6 +73,8 @@ public class MEMiniGameActivity extends ActionBarActivity {
 
 
     private void customRecreate(GameConfig gameConfig){
+        mGameArea.stopGame();
+        mStatusPanel.stopGame("");
         getIntent().putExtra(CONFIG_KEY, gameConfig);
         recreate();
     }
@@ -99,31 +105,68 @@ public class MEMiniGameActivity extends ActionBarActivity {
     }
 
     public void moveDown(View view) {
-        mController.moveDown();
+        if(!gameLasts) return;
+        try {
+            mController.moveDown();
+        } catch (TileDesc.WrongTileException e) {
+            mStatusPanel.reflectMistake();
+        }
     }
 
     public void moveUp(View view) {
-        mController.moveUp();
+        if(!gameLasts) return;
+        try {
+            mController.moveUp();
+        } catch (TileDesc.WrongTileException e) {
+            mStatusPanel.reflectMistake();
+        }
     }
 
     public void moveRight(View view) {
-        mController.moveRight();
+        if(!gameLasts) return;
+        try {
+            mController.moveRight();
+        } catch (TileDesc.WrongTileException e) {
+            mStatusPanel.reflectMistake();
+        }
     }
 
     public void moveLeft(View view) {
-        mController.moveLeft();
+        if(!gameLasts) return;
+        try {
+            mController.moveLeft();
+        } catch (TileDesc.WrongTileException e) {
+            mStatusPanel.reflectMistake();
+        }
     }
 
-    public void acceptTile(View view) {
-        mStatusPanel.reflectCorrectChoice();
+    public void acceptTile(View view)
+    {
+        if(!gameLasts) return;
+        try{
+            mController.accept();
+            mStatusPanel.reflectCorrectChoice();
+        } catch (Exception e) { //TileDesc.WrongTile
+            mStatusPanel.reflectMistake();
+        }
     }
 
-    public void gameOver(){
-
+    public void gameOver(String msg){
+        if(!gameLasts) return;
+        gameLasts = false;
+        mGameArea.stopGame();
+        mStatusPanel.stopGame(msg);
+        MediaPlayer mp = MediaPlayer.create(this,R.raw.fail);
+        mp.start();
     }
 
-    public void gameWon(){
-
+    public void gameWon(String msg){
+        if(!gameLasts) return;
+        gameLasts = false;
+        mGameArea.stopGame();
+        mStatusPanel.stopGame(msg);
+        MediaPlayer mp = MediaPlayer.create(this,R.raw.applause);
+        mp.start();
     }
 
     public void restartGame(MenuItem item) {

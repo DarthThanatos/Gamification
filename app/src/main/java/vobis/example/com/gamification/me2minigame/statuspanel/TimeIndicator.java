@@ -41,13 +41,20 @@ public class TimeIndicator extends TextView {
 
             @Override
             public void onFinish() {
-                mContext.gameOver();
+                mContext.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //TimeIndicator.this.setText("Time finished, game over");
+                        mContext.gameOver("Time exceeded");
+                    }
+                });
             }
         };
         mCountDownTimer.start();
     }
 
-    public void gameWon(){
+    public void stopCounting(String msg){
+        setText("Game over\n" + msg);
         mCountDownTimer.cancel();
     }
 }

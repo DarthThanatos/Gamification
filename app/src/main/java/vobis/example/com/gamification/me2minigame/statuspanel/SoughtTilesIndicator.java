@@ -53,10 +53,12 @@ public class SoughtTilesIndicator extends FrameLayout{
         int resourceId;
         if(mIndex !=3){
             indexOfResource = mContext.mSelectedConfig.getSelector().getSelection()[mIndex++];
+            mContext.mSelectedConfig.getSelector().setSoughtIndex(mIndex);
             resourceId = GameMap.idToResource[indexOfResource];
         }
         else{
             resourceId = R.drawable.ic_check;
+            mContext.gameWon("Congratulations! You won");
         }
         mCodesHolder.setImageResource(resourceId);
     }

@@ -25,12 +25,23 @@ public class GameMap {
             ") to: (" + i + ", " + j + ")");
         else
             System.out.println("Moving to: (" + i + ", " + j + ")");
-        mTileDescs[i][j].setSelected(true);
+        try {
+
+            mTileDescs[i][j].setSelected(true);
+        }catch(TileDesc.WrongTileException e){
+
+            if(mSelectedTile != null){
+                mSelectedTile.setSelected(false);
+            }
+            mSelectedTile = mTileDescs[i][j];
+
+            throw e;
+
+        }
 
         if(mSelectedTile != null){
             mSelectedTile.setSelected(false);
         }
-
         mSelectedTile = mTileDescs[i][j];
         /*
         try{
@@ -38,6 +49,10 @@ public class GameMap {
         }catch(Exception e){
             e.printStackTrace();
         } // ^ for debugging purposes*/
+    }
+
+    public void acceptTile(int i, int j)throws TileDesc.WrongTileException{
+        mTileDescs[i][j].accept();
     }
 
     private GameConfig mGameConfig;
@@ -48,7 +63,7 @@ public class GameMap {
         errorResourceIndex = idToResource.length-1;
         mTileDescs = new TileDesc[ROWS_AMOUNT+1][COLUMNS_AMOUNT];
         for (int i = 0; i < ROWS_AMOUNT + 1; i++){
-            mGameConfig.getGenerator().produceNewRow(mTileDescs[i]);
+            mGameConfig.getGenerator().produceNewRow(mTileDescs[i], mGameConfig.getSelector());
         }
     }
 

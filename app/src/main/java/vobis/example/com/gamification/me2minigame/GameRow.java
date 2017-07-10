@@ -47,7 +47,11 @@ public class GameRow extends View {
                 if(tileDesc.getSelected()){
                     //Toast.makeText(mContext, "Selected: " + tileDesc.getView().getVerticalIndex(), Toast.LENGTH_SHORT).show();
                     System.out.println("Selected: (" + tileDesc.getView().getRowIndex() + ", " + tileDesc.getView().getVerticalIndex() +")");
-                    mController.moveUp();
+                    try {
+                        mController.moveUp();
+                    } catch (TileDesc.WrongTileException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -56,7 +60,7 @@ public class GameRow extends View {
             int tileHeight = MEGameArea.HEIGHT / GameMap.ROWS_AMOUNT;
             mSlideY = -tileHeight + delta + 2 * mContext.mSelectedConfig.getSpeedController().getSlideStep();
 
-            mRowGenerator.replaceOldRow(mTileDescs);
+            mRowGenerator.replaceOldRow(mTileDescs, mContext.mSelectedConfig.getSelector());
         }
     }
 
