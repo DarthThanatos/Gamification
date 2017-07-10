@@ -3,6 +3,7 @@ package vobis.example.com.gamification.me2minigame;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -19,11 +20,14 @@ public class GameRow extends View {
     private float mSlideY;
     private int mIndex;
 
-    public GameRow(Context context, TileDesc[] tileDescs, int index) {
+    private Controller mController;
+
+    public GameRow(Context context, TileDesc[] tileDescs, int index, Controller controller) {
         super(context);
         mContext = (MEMiniGameActivity)context;
         mRowGenerator = mContext.mSelectedConfig.getGenerator();
         mTileDescs = tileDescs;
+        mController = controller;
 
         mTileViews = new ArrayList<>(tileDescs.length);
 
@@ -38,10 +42,20 @@ public class GameRow extends View {
 
     public void slideDown(){
         mSlideY += mContext.mSelectedConfig.getSpeedController().getSlideStep();
+        if(mSlideY + 155 > MEGameArea.HEIGHT){
+            for (TileDesc tileDesc : mTileDescs){
+                if(tileDesc.getSelected()){
+                    //Toast.makeText(mContext, "Selected: " + tileDesc.getView().getVerticalIndex(), Toast.LENGTH_SHORT).show();
+                    System.out.println("Selected: (" + tileDesc.getView().getRowIndex() + ", " + tileDesc.getView().getVerticalIndex() +")");
+                    mController.moveUp();
+                }
+            }
+        }
         if(mSlideY > MEGameArea.HEIGHT){
             float delta = MEGameArea.HEIGHT - mSlideY;
             int tileHeight = MEGameArea.HEIGHT / GameMap.ROWS_AMOUNT;
             mSlideY = -tileHeight + delta + 2 * mContext.mSelectedConfig.getSpeedController().getSlideStep();
+
             mRowGenerator.replaceOldRow(mTileDescs);
         }
     }

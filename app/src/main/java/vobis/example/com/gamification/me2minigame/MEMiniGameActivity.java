@@ -42,6 +42,7 @@ public class MEMiniGameActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(mGameArea != null)mGameArea.cleanup();
         setup();
     }
 
@@ -55,6 +56,7 @@ public class MEMiniGameActivity extends ActionBarActivity {
     @Override
     public void onResume(){
         super.onResume();
+        if(mGameArea != null)mGameArea.cleanup();
         setup();
     }
 

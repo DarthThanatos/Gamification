@@ -16,6 +16,7 @@ import android.widget.StackView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import vobis.example.com.gamification.R;
 import vobis.example.com.gamification.accelerometer.AccelerometerPlayActivity;
@@ -34,6 +35,7 @@ import vobis.example.com.gamification.topdownminigame.TopDownActivity;
 
 public class MainActivity extends Activity{
 
+    private static final String LIST_KEY = "vobis.example.com.gamification.mainactivity.list_key";
     private  static final int buttonWidth = 150;
     private static  final int buttonHeight = 75;
 
@@ -103,12 +105,12 @@ public class MainActivity extends Activity{
 
 
     private static  final Integer[] icons =  {R.drawable.shakespeare, R.drawable.icon, R.drawable.gamification, R.drawable.compass, R.drawable.contactmanager, R.drawable.exit};
-    private ArrayList<StackItem> list;
+    private List<StackItem> list;
 
     private void stackSetup(){
         setContentView(R.layout.activity_main_stack);
         StackView stackView = (StackView) findViewById(R.id.stack_container);
-        list = new ArrayList<>(Arrays.asList(
+        list = Arrays.asList(
                 new StackItem(this, R.drawable.me_minigame, MEMiniGameActivity.class, transitAction),
                 new StackItem(this, R.drawable.topdown, TopDownActivity.class, transitAction),
                 new StackItem(this, R.drawable.floating, FloatingActivity.class, transitAction),
@@ -122,7 +124,7 @@ public class MainActivity extends Activity{
                 new StackItem(this, R.drawable.contactmanager, ContactAdder.class, transitAction),
                 new StackItem(this, R.drawable.billard, AccelerometerPlayActivity.class, transitAction),
                 new StackItem(this, R.drawable.exit,null, exitAction)
-        ));
+        );
         StackAdapter adapter = new StackAdapter(MainActivity.this, list);
         stackView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -131,21 +133,28 @@ public class MainActivity extends Activity{
     @Override
     public void onPause(){
         super.onPause();  // Always call the superclass method first
+        cleanup();
+        System.out.println("Main activity onPause cleanup");
+    }
+
+    private void cleanup(){
+        if(list == null) return;
         for(StackItem stackItem : list){
             stackItem.cleanup();
         }
-        System.out.println("Main activity onPause cleanup");
     }
 
     @Override
     public void onResume(){
         super.onResume();
+        cleanup();
         stackSetup();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        cleanup();
         stackSetup();
     }
 }

@@ -18,17 +18,18 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import vobis.example.com.gamification.R;
 
 public class StackAdapter extends BaseAdapter {
 
-    ArrayList<StackItem> arrayList, copy;
+    List<StackItem> list, copy;
     LayoutInflater inflater;
     Context context;
 
-    public StackAdapter(Context context, ArrayList<StackItem> arrayList){
-        this.arrayList = arrayList;
+    public StackAdapter(Context context, List<StackItem> list){
+        this.list = list;
         this.inflater = LayoutInflater.from(context);
         this.context = context;
 
@@ -36,12 +37,12 @@ public class StackAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return arrayList.size();
+        return list.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return arrayList.get(position);
+        return list.get(position);
     }
 
     @Override
@@ -51,7 +52,7 @@ public class StackAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View frameContainer, ViewGroup scrollView) {
-        StackItem si = arrayList.get(position);
+        StackItem si = list.get(position);
         if(frameContainer == null){
             frameContainer = inflater.inflate(R.layout.main_activity_stack_item, scrollView, false);
         }

@@ -29,6 +29,7 @@ public class MEGameArea extends View {
     private ArrayList<GameRow> mGameRows;
     private TimerTask mTask;
     private Timer mTimer;
+    private Controller mController;
 
 
     public MEGameArea(Context context, AttributeSet attrs) {
@@ -50,17 +51,17 @@ public class MEGameArea extends View {
     }
 
     public void cleanup(){
-        mTimer.cancel();
+        if(mTimer!=null)mTimer.cancel();
         for(GameRow gameRow: mGameRows){
             gameRow.cleanup();
         }
     }
 
-    public void fillRowsWithContent(GameMap gameMap){
+    public void fillRowsWithContent(GameMap gameMap, Controller controller){
         mGameMap = gameMap;
 
         for(int i = 0; i < GameMap.ROWS_AMOUNT+1; i++){
-            GameRow gameRow = new GameRow(mContext, gameMap.getModelRow(i), i);
+            GameRow gameRow = new GameRow(mContext, gameMap.getModelRow(i), i, controller);
             mGameRows.add(gameRow);
         }
 

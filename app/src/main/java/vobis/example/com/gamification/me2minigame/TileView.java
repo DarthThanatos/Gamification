@@ -56,6 +56,10 @@ public class TileView extends View {
         return mRowIndex;
     }
 
+    public int getVerticalIndex(){
+        return mVerticalIndex;
+    }
+
     public void setSelected(boolean selected){
         Paint p = mFrame.getPaint();
         if(selected) {
@@ -80,6 +84,7 @@ public class TileView extends View {
     }
 
     public void cleanup(){
+        if(mBitmap == null) return;
         mBitmap.recycle();
         mBitmap = null;
     }

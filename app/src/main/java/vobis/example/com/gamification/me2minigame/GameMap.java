@@ -21,10 +21,18 @@ public class GameMap {
 
     public void setSelectedTile(int i, int j) throws TileDesc.WrongTileException {
         if(mSelectedTile != null){
+            System.out.println("SetSelected false: (" + mSelectedTile.getView().getRowIndex() + ", " + mSelectedTile.getView().getVerticalIndex() +")");
             mSelectedTile.setSelected(false);
         }
         mSelectedTile = mTileDescs[i][j];
+        System.out.println("setSelected true: (" + mSelectedTile.getView().getRowIndex() + ", " + mSelectedTile.getView().getVerticalIndex() + ")");
         mSelectedTile.setSelected(true);
+
+        try{
+            throw new Exception();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     private GameConfig mGameConfig;

@@ -36,6 +36,7 @@ public class LivesIndicator extends LinearLayout {
             ImageSwitcher heartHolder = new ImageSwitcher(mContext);
             for (int j = 0; j<2; j++) heartHolder.addView(new ImageView(mContext));
             heartHolder.setImageResource(R.drawable.heart);
+
             Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.out_anim);
             heartHolder.setOutAnimation(animation);
             hearts.add(heartHolder);

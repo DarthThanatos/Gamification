@@ -13,7 +13,9 @@ public class Controller {
         mGameConfig = gameConfig;
         mGameArea = meGameArea;
         mGameMap = new GameMap(gameConfig);
-        meGameArea.fillRowsWithContent(mGameMap);
+        meGameArea.fillRowsWithContent(mGameMap, this);
+        moveDown();
+        moveRight();
     }
 
     public void moveLeft(){
@@ -41,22 +43,28 @@ public class Controller {
     public void moveUp(){
         if(mHorizontalIndex > 0){
             mHorizontalIndex --;
-            try {
-                mGameMap.setSelectedTile(mHorizontalIndex, mVerticalIndex);
-            } catch (TileDesc.WrongTileException e) {
-                e.printStackTrace();
-            }
+        }
+        else{
+            mHorizontalIndex = GameMap.ROWS_AMOUNT;
+        }
+        try {
+            mGameMap.setSelectedTile(mHorizontalIndex, mVerticalIndex);
+        } catch (TileDesc.WrongTileException e) {
+            e.printStackTrace();
         }
     }
 
     public void moveDown(){
         if(mHorizontalIndex < GameMap.ROWS_AMOUNT){
             mHorizontalIndex ++;
-            try {
-                mGameMap.setSelectedTile(mHorizontalIndex, mVerticalIndex);
-            } catch (TileDesc.WrongTileException e) {
-                e.printStackTrace();
-            }
+        }
+        else{
+            mHorizontalIndex = 0;
+        }
+        try {
+            mGameMap.setSelectedTile(mHorizontalIndex, mVerticalIndex);
+        } catch (TileDesc.WrongTileException e) {
+            e.printStackTrace();
         }
     }
 
