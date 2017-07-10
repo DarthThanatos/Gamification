@@ -18,25 +18,45 @@ public class Controller {
 
     public void moveLeft(){
         if(mVerticalIndex > 0){
-
+            mVerticalIndex --;
+            try {
+                mGameMap.setSelectedTile(mHorizontalIndex, mVerticalIndex);
+            } catch (TileDesc.WrongTileException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void moveRight(){
         if(mVerticalIndex < GameMap.COLUMNS_AMOUNT - 1){
-
+            mVerticalIndex ++;
+            try {
+                mGameMap.setSelectedTile(mHorizontalIndex, mVerticalIndex);
+            } catch (TileDesc.WrongTileException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void moveUp(){
         if(mHorizontalIndex > 0){
-
+            mHorizontalIndex --;
+            try {
+                mGameMap.setSelectedTile(mHorizontalIndex, mVerticalIndex);
+            } catch (TileDesc.WrongTileException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void moveDown(){
-        if(mHorizontalIndex < GameMap.ROWS_AMOUNT - 1){
-
+        if(mHorizontalIndex < GameMap.ROWS_AMOUNT){
+            mHorizontalIndex ++;
+            try {
+                mGameMap.setSelectedTile(mHorizontalIndex, mVerticalIndex);
+            } catch (TileDesc.WrongTileException e) {
+                e.printStackTrace();
+            }
         }
     }
 

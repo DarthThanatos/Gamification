@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import vobis.example.com.gamification.R;
 import vobis.example.com.gamification.mainactivity.MainActivity;
+import vobis.example.com.gamification.mainactivity.StackItem;
 import vobis.example.com.gamification.me2minigame.gameconfig.Easy;
 import vobis.example.com.gamification.me2minigame.gameconfig.GameConfig;
 import vobis.example.com.gamification.me2minigame.gameconfig.Hard;
@@ -26,9 +27,7 @@ public class MEMiniGameActivity extends ActionBarActivity {
     private MEGameArea mGameArea;
     private StatusPanel mStatusPanel;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    private void setup(){
         mSelectedConfig = (GameConfig)getIntent().getSerializableExtra(CONFIG_KEY);
         mSelectedConfig = mSelectedConfig == null ? new Easy() : mSelectedConfig;
         Toast.makeText(this, mSelectedConfig.getName(), Toast.LENGTH_SHORT).show();
@@ -38,6 +37,25 @@ public class MEMiniGameActivity extends ActionBarActivity {
         mController = new Controller(mGameArea, mSelectedConfig);
 
         mStatusPanel = (StatusPanel) findViewById(R.id.status_panel);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setup();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();  // Always call the superclass method first
+        mGameArea.cleanup();
+        System.out.println("MEMiniGame activity onPause cleanup");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        setup();
     }
 
     @Override

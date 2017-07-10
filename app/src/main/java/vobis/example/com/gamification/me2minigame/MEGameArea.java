@@ -4,11 +4,17 @@ import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import vobis.example.com.gamification.me2minigame.gameconfig.GameConfig;
 
@@ -21,6 +27,9 @@ public class MEGameArea extends View {
     private MEMiniGameActivity mContext;
 
     private ArrayList<GameRow> mGameRows;
+    private TimerTask mTask;
+    private Timer mTimer;
+
 
     public MEGameArea(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -30,21 +39,61 @@ public class MEGameArea extends View {
         WIDTH = getResources().getDisplayMetrics().widthPixels;
         HEIGHT = getResources().getDisplayMetrics().heightPixels;
 
+
         ValueAnimator valueAnimator = ObjectAnimator.ofInt(this, "backgroundColor", Color.GREEN, Color.BLUE);
         valueAnimator.setDuration(3000);
         valueAnimator.setEvaluator(new ArgbEvaluator());
         valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
         valueAnimator.setRepeatMode(ValueAnimator.REVERSE);
-        valueAnimator.start();
+        //valueAnimator.start();
+
+    }
+
+    public void cleanup(){
+        mTimer.cancel();
+        for(GameRow gameRow: mGameRows){
+            gameRow.cleanup();
+        }
     }
 
     public void fillRowsWithContent(GameMap gameMap){
         mGameMap = gameMap;
 
         for(int i = 0; i < GameMap.ROWS_AMOUNT+1; i++){
-            GameRow gameRow = new GameRow(mContext, gameMap.getModelRow(i));
+            GameRow gameRow = new GameRow(mContext, gameMap.getModelRow(i), i);
             mGameRows.add(gameRow);
         }
+
+        try {
+            mGameMap.setSelectedTile(0,0);
+        } catch (TileDesc.WrongTileException e) {
+            e.printStackTrace();
+        }
+
+        mTask = new TimerTask() {
+            @Override
+            public void run() {
+                for (GameRow gameRow: mGameRows){
+                    gameRow.slideDown();
+                }
+                mContext.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        MEGameArea.this.invalidate();
+
+                    }
+                });
+            }
+        };
+
+        mTimer = new Timer();
+        mTimer.scheduleAtFixedRate(mTask, 0, 100);
     }
 
+    @Override
+    protected void onDraw(Canvas canvas) {
+        for (GameRow gameRow : mGameRows){
+            gameRow.draw(canvas);
+        }
+    }
 }

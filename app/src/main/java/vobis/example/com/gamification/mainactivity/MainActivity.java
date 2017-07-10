@@ -103,11 +103,12 @@ public class MainActivity extends Activity{
 
 
     private static  final Integer[] icons =  {R.drawable.shakespeare, R.drawable.icon, R.drawable.gamification, R.drawable.compass, R.drawable.contactmanager, R.drawable.exit};
+    private ArrayList<StackItem> list;
 
     private void stackSetup(){
         setContentView(R.layout.activity_main_stack);
         StackView stackView = (StackView) findViewById(R.id.stack_container);
-        ArrayList<StackItem> list = new ArrayList<>(Arrays.asList(
+        list = new ArrayList<>(Arrays.asList(
                 new StackItem(this, R.drawable.me_minigame, MEMiniGameActivity.class, transitAction),
                 new StackItem(this, R.drawable.topdown, TopDownActivity.class, transitAction),
                 new StackItem(this, R.drawable.floating, FloatingActivity.class, transitAction),
@@ -127,6 +128,20 @@ public class MainActivity extends Activity{
         adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onPause(){
+        super.onPause();  // Always call the superclass method first
+        for(StackItem stackItem : list){
+            stackItem.cleanup();
+        }
+        System.out.println("Main activity onPause cleanup");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        stackSetup();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

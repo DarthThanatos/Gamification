@@ -20,6 +20,7 @@ public class StackItem extends ImageButton {
     public Integer imageId;
     public Class activity = null;
     public View.OnClickListener action;
+    private Bitmap bmp;
 
     public StackItem(Context context, AttributeSet attrs)
     {
@@ -44,11 +45,22 @@ public class StackItem extends ImageButton {
         setScaleType(ScaleType.MATRIX);
         setAdjustViewBounds(true);
 
-        Bitmap bmp = BitmapFactory.decodeResource(getResources(), imageId);
+        bmp = BitmapFactory.decodeResource(getResources(), imageId);
         bmp = Bitmap.createScaledBitmap(bmp,width, height,false);
         setBackground(new BitmapDrawable(getResources(), bmp));
 
         //setBackgroundResource(imageId);
+    }
+
+    @Override
+    public void onDetachedFromWindow(){
+        super.onDetachedFromWindow();
+    }
+
+    public void cleanup(){
+        if (bmp == null) return;
+        bmp.recycle();
+        bmp = null;
     }
 
     public Class getActivity() {
