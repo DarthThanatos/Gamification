@@ -95,6 +95,8 @@ public class MEGameArea extends View {
 
     public void stopGame(){
         mTimer.cancel();
+        System.out.println("invalidating game area ");
+        invalidate();
     }
 
     @Override

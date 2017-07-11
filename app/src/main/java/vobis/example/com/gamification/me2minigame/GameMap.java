@@ -25,6 +25,7 @@ public class GameMap {
             ") to: (" + i + ", " + j + ")");
         else
             System.out.println("Moving to: (" + i + ", " + j + ")");
+
         try {
 
             mTileDescs[i][j].setSelected(true);

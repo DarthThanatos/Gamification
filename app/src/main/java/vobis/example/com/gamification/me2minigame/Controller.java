@@ -48,6 +48,7 @@ public class Controller {
         try {
             mGameMap.setSelectedTile(mHorizontalIndex, mVerticalIndex);
         } catch (TileView.NotInViewAreaException e) {
+            System.out.println("up: rollback to old position");
             mHorizontalIndex = mHorizontalIndex == GameMap.ROWS_AMOUNT ? 0 : mHorizontalIndex + 1;
         }
     }
@@ -62,6 +63,7 @@ public class Controller {
         try {
             mGameMap.setSelectedTile(mHorizontalIndex, mVerticalIndex);
         }catch (TileView.NotInViewAreaException e) {
+            System.out.println("down: rollback to old position");
             mHorizontalIndex = mHorizontalIndex ==  0 ? GameMap.ROWS_AMOUNT  : mHorizontalIndex - 1;
         }
     }

@@ -79,10 +79,12 @@ public class TileView extends View {
         if(selected) {
             p.setStrokeWidth(5);
             p.setColor(Color.GREEN);
+            mBpmRect.set(5,5,TILE_WIDTH-5,TILE_HEIGHT-5);
         }
         else{
             p.setStrokeWidth(3);
             p.setColor(Color.WHITE);
+            mBpmRect.set(0,0,TILE_WIDTH,TILE_HEIGHT);
         }
 
     }

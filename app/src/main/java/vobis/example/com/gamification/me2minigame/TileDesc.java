@@ -1,5 +1,7 @@
 package vobis.example.com.gamification.me2minigame;
 
+import vobis.example.com.gamification.me2minigame.gameconfig.CodesSelector;
+
 public class TileDesc {
 
     private boolean mFailTile = false; //if this tile is a trap
@@ -8,6 +10,7 @@ public class TileDesc {
 
     private TileView mTileView;
     private int mCodeResourceIndex;
+    private CodesSelector mCodeSelector;
 
     public class WrongTileException extends Exception{
 
@@ -16,10 +19,11 @@ public class TileDesc {
         }
     }
 
-    public TileDesc(boolean failTile, boolean sought,int codeResourceIndex){
+    public TileDesc(boolean failTile, boolean sought,int codeResourceIndex, CodesSelector codesSelector){
         mFailTile = failTile;
         mCodeResourceIndex = codeResourceIndex;
         mSought = sought;
+        mCodeSelector = codesSelector;
     }
 
     public void setSought(boolean sought){
@@ -67,7 +71,10 @@ public class TileDesc {
 
 
     public void accept() throws WrongTileException {
+        System.out.println("Seeking " + mCodeSelector.getCurrentResId() + " got " + mCodeResourceIndex );
+        mSought = mCodeSelector.getCurrentResId() == mCodeResourceIndex;
         if (!mSought) throw  new WrongTileException("Not accepted");
+
     }
 
 }

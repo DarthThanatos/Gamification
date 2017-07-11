@@ -15,7 +15,7 @@ public class MediumGenerator implements RowGenerator {
     public void replaceOldRow(TileDesc[] row, CodesSelector codesSelector) {
         for (int j = 0; j < GameMap.COLUMNS_AMOUNT; j++){
             int resId = Math.abs(new Random().nextInt())% 6;
-            boolean soughtTile = codesSelector.getCurrentSoughtIndex() == resId;
+            boolean soughtTile = codesSelector.getCurrentResId() == resId;
             row[j].setCodeResourceIndex(resId);
             row[j].setSought(soughtTile);
             row[j].setFail(false);
@@ -39,8 +39,8 @@ public class MediumGenerator implements RowGenerator {
     public void produceNewRow(TileDesc[] row, CodesSelector codesSelector) {
         for (int j = 0; j < GameMap.COLUMNS_AMOUNT; j++){
             int resId = Math.abs(new Random().nextInt())% 6;
-            boolean soughtTile = codesSelector.getCurrentSoughtIndex() == resId;
-            row[j] = new TileDesc(false, soughtTile, resId);
+            boolean soughtTile = codesSelector.getCurrentResId() == resId;
+            row[j] = new TileDesc(false, soughtTile, resId, codesSelector);
         }
 
     }

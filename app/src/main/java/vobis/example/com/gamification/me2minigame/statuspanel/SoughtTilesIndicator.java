@@ -53,7 +53,7 @@ public class SoughtTilesIndicator extends FrameLayout{
         int resourceId;
         if(mIndex !=3){
             indexOfResource = mContext.mSelectedConfig.getSelector().getSelection()[mIndex++];
-            mContext.mSelectedConfig.getSelector().setSoughtIndex(mIndex);
+            mContext.mSelectedConfig.getSelector().setSoughtIndex(mIndex-1);
             resourceId = GameMap.idToResource[indexOfResource];
         }
         else{

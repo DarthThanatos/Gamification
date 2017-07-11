@@ -74,7 +74,7 @@ public class MEMiniGameActivity extends ActionBarActivity {
 
     private void customRecreate(GameConfig gameConfig){
         mGameArea.stopGame();
-        mStatusPanel.stopGame("");
+        mStatusPanel.stopGame("Restarting...");
         getIntent().putExtra(CONFIG_KEY, gameConfig);
         recreate();
     }
