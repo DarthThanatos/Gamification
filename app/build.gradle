@@ -53,4 +53,5 @@ dependencies {
     //androidTestCompile 'com.android.support:support-annotations:22.+'
     testCompile 'junit:junit:4.12'
     testCompile "org.robolectric:robolectric:2.+"
+    testCompile 'org.hamcrest:hamcrest-library:1.3'
 }
